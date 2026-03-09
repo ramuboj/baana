@@ -1,0 +1,801 @@
+/* Bukka Ayyavarlu Community – home page (scoped under .bukka-home) */
+.bukka-home {
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim: #7a5f2a;
+  --deep: #1a1208;
+  --dark: #231a09;
+  --mid: #3d2d10;
+  --cream: #f5edd8;
+  --cream-dim: #ddd0b0;
+  --terracotta: #b85c38;
+  --rust: #8c3a1c;
+  --sage: #4a6741;
+  min-height: 100vh;
+  background: var(--deep);
+  color: var(--cream);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+.bukka-home *,
+.bukka-home *::before,
+.bukka-home *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.bukka-home a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.bukka-home a:hover {
+  text-decoration: none;
+}
+
+/* NAV */
+.bukka-home .nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 5%;
+  background: linear-gradient(to bottom, rgba(26, 18, 8, 0.95), transparent);
+  backdrop-filter: blur(4px);
+}
+
+.bukka-home .nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.bukka-home .nav-region {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  font-weight: 400;
+}
+
+/* Country selector */
+.bukka-home .country-selector,
+.bukka-auth .country-selector {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.bukka-home .country-selector-btn,
+.bukka-auth .country-selector-btn {
+  background: none;
+  border: none;
+  color: var(--gold-dim);
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  transition: color 0.2s;
+}
+
+.bukka-home .country-selector-btn:hover,
+.bukka-auth .country-selector-btn:hover {
+  color: var(--gold-light);
+}
+
+.bukka-home .country-selector-btn--active,
+.bukka-auth .country-selector-btn--active {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.bukka-home .country-selector-sep,
+.bukka-auth .country-selector-sep {
+  color: var(--gold-dim);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.bukka-home .country-selector-label,
+.bukka-auth .country-selector-label {
+  color: var(--gold-dim);
+}
+
+.bukka-home .nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.bukka-home .nav-links a {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  transition: color 0.3s;
+}
+
+.bukka-home .nav-links a:hover {
+  color: var(--gold);
+}
+
+/* HERO */
+.bukka-home .hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 5% 6rem;
+  overflow: hidden;
+}
+
+.bukka-home .hero-mandala {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  opacity: 0.06;
+  animation: bukka-spin 120s linear infinite;
+}
+
+@keyframes bukka-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.bukka-home .hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201, 168, 76, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 60% at 50% 100%, var(--deep) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.bukka-home .hero-eyebrow {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 1;
+  animation: bukka-fadeUp 0.8s ease both;
+}
+
+.bukka-home .hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  color: var(--cream);
+  position: relative;
+  z-index: 1;
+  animation: bukka-fadeUp 0.9s 0.1s ease both;
+}
+
+.bukka-home .hero-title span {
+  color: var(--gold);
+}
+
+.bukka-home .hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  color: var(--cream-dim);
+  margin: 1.4rem 0 2.4rem;
+  max-width: 620px;
+  position: relative;
+  z-index: 1;
+  animation: bukka-fadeUp 1s 0.2s ease both;
+}
+
+.bukka-home .hero-cta {
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--deep);
+  background: var(--gold);
+  padding: 0.85rem 2.5rem;
+  transition: background 0.3s, color 0.3s;
+  position: relative;
+  z-index: 1;
+  animation: bukka-fadeUp 1.1s 0.3s ease both;
+}
+
+.bukka-home .hero-cta:hover {
+  background: var(--gold-light);
+}
+
+.bukka-home .hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  animation: bukka-fadeUp 1.2s 0.5s ease both;
+}
+
+.bukka-home .scroll-line {
+  width: 1px;
+  height: 40px;
+  background: var(--gold-dim);
+  animation: bukka-scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes bukka-scrollPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.2);
+  }
+}
+
+@keyframes bukka-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SECTION BASE */
+.bukka-home .section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.bukka-home .section-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+
+.bukka-home .section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.bukka-home .section-rule {
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 1.8rem;
+}
+
+.bukka-home .section-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+  line-height: 1.9;
+  color: var(--cream-dim);
+}
+
+/* ABOUT */
+.bukka-home .about {
+  padding: 7rem 0;
+  background: var(--dark);
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+}
+
+.bukka-home .about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.bukka-home .about-visual {
+  position: relative;
+}
+
+.bukka-home .about-frame {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--mid);
+  border: 1px solid var(--gold-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.bukka-home .about-frame-inner {
+  width: 85%;
+  height: 85%;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bukka-home .about-frame svg {
+  width: 120px;
+  height: 120px;
+  opacity: 0.5;
+}
+
+.bukka-home .about-frame-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--gold-dim);
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.bukka-home .about-frame::before,
+.bukka-home .about-frame::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: var(--gold);
+  border-style: solid;
+}
+
+.bukka-home .about-frame::before {
+  top: 12px;
+  left: 12px;
+  border-width: 1px 0 0 1px;
+}
+
+.bukka-home .about-frame::after {
+  bottom: 12px;
+  right: 12px;
+  border-width: 0 1px 1px 0;
+}
+
+.bukka-home .about-tag {
+  position: absolute;
+  bottom: -18px;
+  right: -18px;
+  background: var(--terracotta);
+  padding: 1rem 1.4rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.bukka-home .about-tag strong {
+  display: block;
+  font-size: 1.8rem;
+  letter-spacing: 0;
+}
+
+/* PILLARS */
+.bukka-home .pillars {
+  padding: 7rem 0;
+}
+
+.bukka-home .pillars-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.bukka-home .pillars-header .section-rule {
+  margin: 0 auto 1.8rem;
+}
+
+.bukka-home .pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.bukka-home .pillar {
+  background: var(--dark);
+  padding: 3rem 2.2rem;
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s;
+}
+
+.bukka-home .pillar:hover {
+  border-color: rgba(201, 168, 76, 0.4);
+}
+
+.bukka-home .pillar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 0;
+  background: var(--gold);
+  transition: height 0.5s ease;
+}
+
+.bukka-home .pillar:hover::before {
+  height: 100%;
+}
+
+.bukka-home .pillar-number {
+  font-family: 'Cinzel', serif;
+  font-size: 3.5rem;
+  color: rgba(201, 168, 76, 0.1);
+  line-height: 1;
+  margin-bottom: 1rem;
+  transition: color 0.4s;
+}
+
+.bukka-home .pillar:hover .pillar-number {
+  color: rgba(201, 168, 76, 0.2);
+}
+
+.bukka-home .pillar-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.bukka-home .pillar-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+}
+
+.bukka-home .pillar-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--cream-dim);
+}
+
+/* HISTORY */
+.bukka-home .history {
+  padding: 7rem 0;
+  background: var(--dark);
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+}
+
+.bukka-home .history-header {
+  margin-bottom: 4rem;
+}
+
+.bukka-home .timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.bukka-home .timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+}
+
+.bukka-home .timeline-item {
+  position: relative;
+  padding: 0 0 3.5rem 2.5rem;
+}
+
+.bukka-home .timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 0.3rem;
+  width: 10px;
+  height: 10px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+.bukka-home .timeline-era {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+.bukka-home .timeline-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.7rem;
+}
+
+.bukka-home .timeline-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--cream-dim);
+  max-width: 680px;
+}
+
+/* VALUES */
+.bukka-home .values {
+  padding: 6rem 0;
+  overflow: hidden;
+}
+
+.bukka-home .values-ticker {
+  display: flex;
+  gap: 3rem;
+  white-space: nowrap;
+  animation: bukka-ticker 25s linear infinite;
+  margin-bottom: 5rem;
+  border-top: 1px solid var(--gold-dim);
+  border-bottom: 1px solid var(--gold-dim);
+  padding: 1rem 0;
+}
+
+@keyframes bukka-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.bukka-home .ticker-item {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.bukka-home .ticker-item::after {
+  content: '◆';
+  font-size: 0.5rem;
+}
+
+.bukka-home .values-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.bukka-home .values-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--cream);
+  border-left: 3px solid var(--gold);
+  padding-left: 2rem;
+}
+
+.bukka-home .values-quote cite {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-style: normal;
+  margin-top: 1rem;
+}
+
+.bukka-home .values-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.bukka-home .value-card {
+  background: var(--dark);
+  border: 1px solid rgba(201, 168, 76, 0.12);
+  padding: 1.6rem;
+  transition: border-color 0.3s;
+}
+
+.bukka-home .value-card:hover {
+  border-color: rgba(201, 168, 76, 0.4);
+}
+
+.bukka-home .value-card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.bukka-home .value-card-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--cream-dim);
+}
+
+/* CTA BAND */
+.bukka-home .cta-band {
+  padding: 6rem 0;
+  background: var(--terracotta);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.bukka-home .cta-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 12px,
+    rgba(0, 0, 0, 0.06) 12px,
+    rgba(0, 0, 0, 0.06) 13px
+  );
+}
+
+.bukka-home .cta-band .section-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.bukka-home .cta-band .section-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.bukka-home .cta-band .section-title {
+  color: #fff;
+}
+
+.bukka-home .cta-band .section-body {
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 560px;
+  margin: 0 auto 2.5rem;
+}
+
+.bukka-home .cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.bukka-home .btn-primary {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  background: #fff;
+  padding: 0.9rem 2.4rem;
+  font-weight: 700;
+  transition: background 0.3s;
+}
+
+.bukka-home .btn-primary:hover {
+  background: var(--cream);
+}
+
+.bukka-home .btn-secondary {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  background: transparent;
+  padding: 0.9rem 2.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: border-color 0.3s;
+}
+
+.bukka-home .btn-secondary:hover {
+  border-color: #fff;
+}
+
+/* FOOTER */
+.bukka-home .footer {
+  padding: 3rem 5%;
+  background: var(--deep);
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.bukka-home .footer-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.bukka-home .footer-copy {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-dim);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .bukka-home .about-grid,
+  .bukka-home .values-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .bukka-home .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+  .bukka-home .values-list {
+    grid-template-columns: 1fr;
+  }
+  .bukka-home .about-visual {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .bukka-home .nav-links {
+    display: none;
+  }
+}

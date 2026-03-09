@@ -1,0 +1,493 @@
+/* Bukka Ayyavarlu – Login & Register (sync with home) */
+.bukka-auth {
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim: #7a5f2a;
+  --deep: #1a1208;
+  --dark: #231a09;
+  --mid: #3d2d10;
+  --cream: #f5edd8;
+  --cream-dim: #ddd0b0;
+  --terracotta: #b85c38;
+  min-height: 100vh;
+  background: var(--deep);
+  color: var(--cream);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+
+.bukka-auth a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.bukka-auth a:hover {
+  color: var(--gold-light);
+}
+
+/* Nav – same as home */
+.bukka-auth .auth-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 5%;
+  background: linear-gradient(to bottom, rgba(26, 18, 8, 0.95), transparent);
+  backdrop-filter: blur(4px);
+}
+
+.bukka-auth .auth-nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.bukka-auth .auth-nav-region {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  font-weight: 400;
+}
+
+.bukka-auth .country-selector {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.bukka-auth .country-selector-btn {
+  background: none;
+  border: none;
+  color: var(--gold-dim);
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  transition: color 0.2s;
+}
+
+.bukka-auth .country-selector-btn:hover {
+  color: var(--gold-light);
+}
+
+.bukka-auth .country-selector-btn--active {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.bukka-auth .country-selector-sep {
+  color: var(--gold-dim);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.bukka-auth .country-selector-label {
+  color: var(--gold-dim);
+}
+
+.bukka-auth .auth-nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.bukka-auth .auth-nav-links a {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+.bukka-auth .auth-nav-links a:hover {
+  color: var(--gold);
+}
+
+/* Main – centered form */
+.bukka-auth .auth-main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem 4rem;
+}
+
+.bukka-auth .auth-card {
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow: auto;
+  background: var(--dark);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 0;
+  padding: 2.5rem;
+  position: relative;
+}
+
+.bukka-auth .auth-card::before,
+.bukka-auth .auth-card::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: var(--gold);
+  border-style: solid;
+}
+
+.bukka-auth .auth-card::before {
+  top: 12px;
+  left: 12px;
+  border-width: 1px 0 0 1px;
+}
+
+.bukka-auth .auth-card::after {
+  bottom: 12px;
+  right: 12px;
+  border-width: 0 1px 1px 0;
+}
+
+.bukka-auth .auth-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.bukka-auth .auth-subtitle {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.75rem;
+}
+
+.bukka-auth .auth-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+.bukka-auth .auth-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background: var(--deep);
+  border: 1px solid var(--gold-dim);
+  color: var(--cream);
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.bukka-auth .auth-input::placeholder {
+  color: var(--gold-dim);
+  opacity: 0.7;
+}
+
+.bukka-auth .auth-input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.bukka-auth .auth-input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.bukka-auth select.auth-input {
+  cursor: pointer;
+  appearance: auto;
+}
+
+.bukka-auth .auth-error {
+  font-size: 0.875rem;
+  color: var(--terracotta);
+  margin-bottom: 1rem;
+}
+
+.bukka-auth .auth-btn {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.bukka-auth .auth-btn-primary {
+  background: var(--gold);
+  color: var(--deep);
+}
+
+.bukka-auth .auth-btn-primary:hover:not(:disabled) {
+  background: var(--gold-light);
+}
+
+.bukka-auth .auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bukka-auth .auth-divider {
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin: 1.5rem 0 1rem;
+}
+
+.bukka-auth .auth-footer-links {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--cream-dim);
+  margin-top: 1.5rem;
+}
+
+.bukka-auth .auth-footer-links a {
+  color: var(--gold);
+}
+
+.bukka-auth .auth-fieldset-legend {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.bukka-auth .auth-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.bukka-auth .auth-fieldset:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Footer strip */
+.bukka-auth .auth-page-footer {
+  padding: 1.5rem 5%;
+  text-align: center;
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-dim);
+}
+
+/* Chat page – user chatbot */
+.bukka-auth .auth-main-chat {
+  justify-content: flex-start;
+  padding-top: 6rem;
+  padding-bottom: 2rem;
+}
+
+.bukka-auth .auth-chat-wrap {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.bukka-auth .auth-chat-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.bukka-auth .auth-chat-subtitle {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 1.5rem;
+}
+
+/* Chatbot theme (Bukka) – when inside .bukka-auth */
+.bukka-auth .chatbot-bukka {
+  min-height: 480px;
+  max-height: 70vh;
+  background: var(--dark) !important;
+  border: 1px solid rgba(201, 168, 76, 0.25) !important;
+  border-radius: 0 !important;
+}
+
+.bukka-auth .chatbot-bukka .chatbot-messages {
+  color: var(--cream);
+}
+
+.bukka-auth .chatbot-bukka .chatbot-msg-user {
+  background: var(--gold-dim) !important;
+  color: var(--cream) !important;
+}
+
+.bukka-auth .chatbot-bukka .chatbot-msg-assistant {
+  background: var(--mid) !important;
+  color: var(--cream-dim) !important;
+  border: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.bukka-auth .chatbot-bukka .chatbot-input {
+  background: var(--deep) !important;
+  border-color: var(--gold-dim) !important;
+  color: var(--cream) !important;
+}
+
+.bukka-auth .chatbot-bukka .chatbot-send {
+  background: var(--gold) !important;
+  color: var(--deep) !important;
+}
+
+.bukka-auth .chatbot-bukka .chatbot-send:hover:not(:disabled) {
+  background: var(--gold-light) !important;
+}
+
+.bukka-auth .chatbot-bukka .chatbot-error {
+  color: var(--terracotta) !important;
+}
+
+/* Contact page */
+.bukka-auth .auth-main-contact {
+  justify-content: flex-start;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  align-items: stretch;
+}
+
+.bukka-auth .contact-wrap {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.bukka-auth .contact-intro {
+  margin-bottom: 2.5rem;
+}
+
+.bukka-auth .contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 700px) {
+  .bukka-auth .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bukka-auth .contact-info-card {
+  background: var(--dark);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  padding: 1.75rem;
+  position: relative;
+}
+
+.bukka-auth .contact-info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--gold);
+}
+
+.bukka-auth .contact-info-card h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.bukka-auth .contact-info-card p,
+.bukka-auth .contact-info-card a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--cream-dim);
+}
+
+.bukka-auth .contact-info-card a:hover {
+  color: var(--gold-light);
+}
+
+.bukka-auth .contact-country-section {
+  margin-bottom: 2.5rem;
+}
+
+.bukka-auth .contact-country-heading {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bukka-auth .contact-country-flag {
+  font-size: 1.25rem;
+}
+
+.bukka-auth .contact-info-shared {
+  border-left: 3px solid var(--gold);
+}
+
+.bukka-auth .contact-form-card {
+  background: var(--dark);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  padding: 2rem;
+  margin-top: 0.5rem;
+}
+
+.bukka-auth .contact-form-card .auth-label {
+  margin-top: 1rem;
+}
+
+.bukka-auth .contact-form-card .auth-label:first-of-type {
+  margin-top: 0;
+}
+
+.bukka-auth .contact-form-card .auth-btn {
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .bukka-auth .auth-nav-links {
+    gap: 1.25rem;
+    font-size: 0.7rem;
+  }
+}
