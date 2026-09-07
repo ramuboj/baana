@@ -2,6 +2,7 @@ services:
   - type: web
     name: baana-api
     runtime: node
+    plan: free
     buildCommand: npm ci
     startCommand: npm start
     healthCheckPath: /health
@@ -21,3 +22,4 @@ databases:
   - name: baana-db
     databaseName: baana
     user: baana
+    plan: free
