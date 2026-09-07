@@ -1,6 +1,9 @@
 import './home.css';
 import Link from 'next/link';
 import CountrySelector from '@/components/CountrySelector';
+import AuthNavLink from '@/components/AuthNavLink';
+import RegionNewsNavLink from '@/components/RegionNewsNavLink';
+import CommunityAnnouncement from '@/components/CommunityAnnouncement';
 
 export default function HomePage() {
   return (
@@ -13,12 +16,15 @@ export default function HomePage() {
         <ul className="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#heritage">Heritage</a></li>
+          <li><a href="#practice">Practice</a></li>
           <li><a href="#history">History</a></li>
           <li><a href="#values">Values</a></li>
           <li><a href="#join">Join Us</a></li>
           <li><Link href="/contact">Contact</Link></li>
-          <li><Link href="/login">Login</Link></li>
+          <li><RegionNewsNavLink /></li>
+          <li className="nav-auth-item"><AuthNavLink /></li>
         </ul>
+        <AuthNavLink className="mobile-profile-link" />
       </nav>
 
       <section className="hero">
@@ -51,6 +57,9 @@ export default function HomePage() {
           Scroll
         </div>
       </section>
+      <div className="home-announcement-wrap">
+        <CommunityAnnouncement />
+      </div>
 
       <section className="about" id="about">
         <div className="section-inner">
@@ -124,6 +133,36 @@ export default function HomePage() {
               <div className="pillar-title">Oral &amp; Literary Tradition</div>
               <p className="pillar-text">A community of storytellers and scholars, preserving wisdom through poetry, song, and spoken word — sustaining a rich Telugu literary heritage that predates the written record.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="practice" id="practice">
+        <div className="section-inner">
+          <div className="practice-intro">
+            <p className="section-label">A Living Faith</p>
+            <h2 className="section-title">Sacred Practice, Shared Together</h2>
+            <div className="section-rule" />
+            <p className="section-body">
+              Our religious life is carried through everyday acts of devotion, family remembrance, and service to one another. Across India and the United States, members keep these values alive in homes, temples, and community gatherings.
+            </p>
+          </div>
+          <div className="practice-grid">
+            <article className="practice-card">
+              <span className="practice-symbol" aria-hidden>ॐ</span>
+              <h3>Prayer &amp; Reflection</h3>
+              <p>Make space for gratitude, remembrance, and a quiet connection with the divine.</p>
+            </article>
+            <article className="practice-card">
+              <span className="practice-symbol" aria-hidden>✦</span>
+              <h3>Celebration &amp; Ritual</h3>
+              <p>Gather with family and community to honor festivals, traditions, and sacred milestones.</p>
+            </article>
+            <article className="practice-card">
+              <span className="practice-symbol" aria-hidden>दान</span>
+              <h3>Service &amp; Compassion</h3>
+              <p>Let devotion become action through generosity, hospitality, and care for the community.</p>
+            </article>
           </div>
         </div>
       </section>

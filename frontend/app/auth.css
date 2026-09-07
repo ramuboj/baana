@@ -61,6 +61,7 @@
 }
 
 .bukka-auth .country-selector {
+  position: relative;
   font-family: 'Lato', sans-serif;
   font-size: 0.6rem;
   letter-spacing: 0.15em;
@@ -97,6 +98,22 @@
 
 .bukka-auth .country-selector-label {
   color: var(--gold-dim);
+}
+
+.bukka-auth .country-selector-error {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  z-index: 110;
+  width: min(22rem, 80vw);
+  padding: 0.7rem 0.85rem;
+  background: var(--dark);
+  border: 1px solid var(--terracotta);
+  color: #f4b8a4;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .bukka-auth .auth-nav-links {

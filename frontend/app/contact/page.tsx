@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import CountrySelector from '@/components/CountrySelector';
 import ContactScrollToRegion from '@/components/ContactScrollToRegion';
+import RegionGuard from '@/components/RegionGuard';
 import '../auth.css';
 
 export default function ContactPage() {
@@ -33,7 +34,7 @@ export default function ContactPage() {
           </div>
 
           {/* India */}
-          <section className="contact-country-section" aria-labelledby="contact-india">
+          <RegionGuard region="IN"><section className="contact-country-section" aria-labelledby="contact-india">
             <h2 id="contact-india" className="contact-country-heading">
               <span className="contact-country-flag" aria-hidden>🇮🇳</span>
               India
@@ -67,10 +68,10 @@ export default function ContactPage() {
                 </p>
               </div>
             </div>
-          </section>
+          </section></RegionGuard>
 
           {/* United States */}
-          <section className="contact-country-section" aria-labelledby="contact-us">
+          <RegionGuard region="US"><section className="contact-country-section" aria-labelledby="contact-us">
             <h2 id="contact-us" className="contact-country-heading">
               <span className="contact-country-flag" aria-hidden>🇺🇸</span>
               United States
@@ -104,7 +105,7 @@ export default function ContactPage() {
                 </p>
               </div>
             </div>
-          </section>
+          </section></RegionGuard>
 
           {/* Shared */}
           <div className="contact-info-card contact-info-shared" style={{ marginBottom: '2rem' }}>

@@ -1,27 +1,2 @@
-/** Country options for registration (name as label and value) */
-export const COUNTRIES = [
-  'India',
-  'United States',
-  'United Kingdom',
-  'Canada',
-  'Australia',
-  'United Arab Emirates',
-  'Saudi Arabia',
-  'Singapore',
-  'Malaysia',
-  'South Africa',
-  'Germany',
-  'France',
-  'Netherlands',
-  'Ireland',
-  'New Zealand',
-  'Sri Lanka',
-  'Bangladesh',
-  'Pakistan',
-  'Nepal',
-  'Qatar',
-  'Kuwait',
-  'Bahrain',
-  'Oman',
-  'Other',
-] as const;
+/** Supported registration regions. */
+export const COUNTRIES = ['India', 'United States'] as const;

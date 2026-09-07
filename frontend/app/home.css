@@ -135,6 +135,17 @@
   color: var(--gold);
 }
 
+.bukka-home .nav-auth-item a,
+.bukka-home .mobile-profile-link {
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  padding: 0.55rem 0.8rem;
+}
+
+.bukka-home .mobile-profile-link {
+  display: none;
+}
+
 /* HERO */
 .bukka-home .hero {
   position: relative;
@@ -248,6 +259,18 @@
   text-transform: uppercase;
   color: var(--gold-dim);
   animation: bukka-fadeUp 1.2s 0.5s ease both;
+}
+
+.bukka-home .home-announcement-wrap {
+  max-width: 1100px;
+  margin: -2rem auto 0;
+  padding: 0 5%;
+  position: relative;
+  z-index: 2;
+}
+
+.bukka-home .home-announcement-wrap .community-announcement {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
 .bukka-home .scroll-line {
@@ -498,6 +521,55 @@
   font-size: 1.05rem;
   line-height: 1.75;
   color: var(--cream-dim);
+}
+
+/* SACRED PRACTICE */
+.bukka-home .practice {
+  padding: 7rem 0;
+  background:
+    linear-gradient(rgba(26, 18, 8, 0.9), rgba(26, 18, 8, 0.9)),
+    radial-gradient(circle at 80% 20%, rgba(184, 92, 56, 0.18), transparent 36%);
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+}
+
+.bukka-home .practice-intro {
+  max-width: 650px;
+  margin-bottom: 3rem;
+}
+
+.bukka-home .practice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.bukka-home .practice-card {
+  padding: 2rem;
+  background: rgba(61, 45, 16, 0.55);
+  border: 1px solid rgba(201, 168, 76, 0.22);
+}
+
+.bukka-home .practice-symbol {
+  display: block;
+  margin-bottom: 1.2rem;
+  color: var(--gold);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+}
+
+.bukka-home .practice-card h3 {
+  margin-bottom: 0.7rem;
+  color: var(--cream);
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+}
+
+.bukka-home .practice-card p {
+  color: var(--cream-dim);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
 /* HISTORY */
@@ -785,6 +857,9 @@
     grid-template-columns: 1fr;
     gap: 1px;
   }
+  .bukka-home .practice-grid {
+    grid-template-columns: 1fr;
+  }
   .bukka-home .values-list {
     grid-template-columns: 1fr;
   }
@@ -796,6 +871,24 @@
 
 @media (max-width: 600px) {
   .bukka-home .nav-links {
+    display: flex;
+    max-width: 52vw;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .bukka-home .nav-links::-webkit-scrollbar {
     display: none;
+  }
+
+  .bukka-home .nav-links li:not(.nav-auth-item) {
+    display: none;
+  }
+
+  .bukka-home .nav-auth-item a {
+    display: inline-block;
+    font-size: 0.7rem;
+    white-space: nowrap;
   }
 }

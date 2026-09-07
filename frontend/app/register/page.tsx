@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { setToken } from '@/lib/auth';
@@ -23,11 +23,22 @@ export default function RegisterPage() {
   const [currentLocation, setCurrentLocation] = useState('');
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
+  const [currentCountry, setCurrentCountry] = useState('');
+  const [regionLocked, setRegionLocked] = useState(false);
   const [fatherName, setFatherName] = useState('');
   const [motherName, setMotherName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const region = new URLSearchParams(window.location.search).get('region');
+    if (region === 'IN' || region === 'US') {
+      setCountry(region === 'IN' ? 'India' : 'United States');
+      setCurrentCountry(region === 'IN' ? 'India' : 'United States');
+      setRegionLocked(true);
+    }
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -47,6 +58,7 @@ export default function RegisterPage() {
       const res = await fetch(`${API_URL}/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           email,
           password,
@@ -57,6 +69,7 @@ export default function RegisterPage() {
           current_location: currentLocation.trim() || undefined,
           city: city.trim() || undefined,
           country: country || undefined,
+          current_country: currentCountry || undefined,
           father_name: fatherName.trim() || undefined,
           mother_name: motherName.trim() || undefined,
           contact_number: contactNumber.trim() || undefined,
@@ -206,19 +219,33 @@ export default function RegisterPage() {
                 className="auth-input"
                 autoComplete="address-level2"
               />
-              <label htmlFor="country" className="auth-label">Country</label>
+              <label htmlFor="country" className="auth-label">Registration region</label>
               <select
                 id="country"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                disabled={loading}
+                disabled={loading || regionLocked}
                 className="auth-input"
                 autoComplete="country-name"
+                required
               >
-                <option value="">Select country</option>
+                <option value="">Select region</option>
                 {COUNTRIES.map((c) => (
                   <option key={c} value={c}>{c}</option>
                 ))}
+              </select>
+              <label htmlFor="currentCountry" className="auth-label">Current country</label>
+              <select
+                id="currentCountry"
+                value={currentCountry}
+                onChange={(e) => setCurrentCountry(e.target.value)}
+                disabled={loading}
+                className="auth-input"
+                autoComplete="country-name"
+                required
+              >
+                <option value="">Select current country</option>
+                {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
               <label htmlFor="fatherName" className="auth-label">Father&apos;s name</label>
               <input
