@@ -3,7 +3,7 @@ services:
     name: baana-api
     runtime: node
     plan: free
-    buildCommand: npm ci
+    buildCommand: npm install --no-package-lock
     startCommand: npm start
     healthCheckPath: /health
     envVars:
