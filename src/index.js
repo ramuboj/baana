@@ -32,11 +32,11 @@ app.get('/auth/me', authenticate, me);
 app.patch('/auth/me', authenticate, updateProfile);
 app.post('/chat', chat);
 
-app.get('/health/live', (_req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
-app.get('/health', async (_req, res) => {
+app.get('/health/ready', async (_req, res) => {
   const startedAt = new Date().toISOString();
   const checks = {
     server: 'ok',
