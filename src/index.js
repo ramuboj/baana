@@ -32,6 +32,10 @@ app.get('/auth/me', authenticate, me);
 app.patch('/auth/me', authenticate, updateProfile);
 app.post('/chat', chat);
 
+app.get('/health/live', (_req, res) => {
+  res.json({ status: 'ok' });
+});
+
 app.get('/health', async (_req, res) => {
   const startedAt = new Date().toISOString();
   const checks = {
