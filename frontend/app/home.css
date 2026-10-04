@@ -1,16 +1,16 @@
 /* Bukka Ayyavarlu Community – home page (scoped under .bukka-home) */
 .bukka-home {
-  --gold: #c9a84c;
-  --gold-light: #e8c97a;
-  --gold-dim: #7a5f2a;
-  --deep: #1a1208;
-  --dark: #231a09;
-  --mid: #3d2d10;
-  --cream: #f5edd8;
-  --cream-dim: #ddd0b0;
-  --terracotta: #b85c38;
-  --rust: #8c3a1c;
-  --sage: #4a6741;
+  --gold: #d8a647;
+  --gold-light: #f2ca73;
+  --gold-dim: #93632f;
+  --deep: #1b100d;
+  --dark: #261715;
+  --mid: #3a2117;
+  --cream: #fff4df;
+  --cream-dim: #dbc6a5;
+  --terracotta: #9f4125;
+  --rust: #702719;
+  --sage: #536348;
   min-height: 100vh;
   background: var(--deep);
   color: var(--cream);
@@ -46,8 +46,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.2rem 5%;
-  background: linear-gradient(to bottom, rgba(26, 18, 8, 0.95), transparent);
+  gap: 1.5rem;
+  padding: 3.25rem 5% 1rem;
+  background: linear-gradient(to bottom, rgba(27, 16, 13, 0.97), rgba(27, 16, 13, 0.78));
   backdrop-filter: blur(4px);
 }
 
@@ -57,92 +58,67 @@
   letter-spacing: 0.12em;
   color: var(--gold);
   display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.bukka-home .nav-region {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold-dim);
-  font-weight: 400;
-}
-
-/* Country selector */
-.bukka-home .country-selector,
-.bukka-auth .country-selector {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  display: flex;
   align-items: center;
-  gap: 0.35rem;
+  flex: 0 0 auto;
+  gap: 0.9rem;
 }
 
-.bukka-home .country-selector-btn,
-.bukka-auth .country-selector-btn {
-  background: none;
-  border: none;
-  color: var(--gold-dim);
-  cursor: pointer;
-  padding: 0;
-  font: inherit;
-  transition: color 0.2s;
-}
-
-.bukka-home .country-selector-btn:hover,
-.bukka-auth .country-selector-btn:hover {
-  color: var(--gold-light);
-}
-
-.bukka-home .country-selector-btn--active,
-.bukka-auth .country-selector-btn--active {
-  color: var(--gold);
-  font-weight: 400;
-}
-
-.bukka-home .country-selector-sep,
-.bukka-auth .country-selector-sep {
-  color: var(--gold-dim);
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.bukka-home .country-selector-label,
-.bukka-auth .country-selector-label {
-  color: var(--gold-dim);
+.bukka-home .country-region-badge {
+  padding: 0.4rem 0.65rem;
+  border: 1px solid rgba(216, 166, 71, 0.55);
+  border-radius: 999px;
+  color: var(--cream-dim);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .bukka-home .nav-links {
   display: flex;
-  gap: 2.5rem;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.75rem clamp(0.8rem, 1.5vw, 1.5rem);
   list-style: none;
 }
 
 .bukka-home .nav-links a {
   font-family: 'Lato', sans-serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--cream-dim);
-  transition: color 0.3s;
+  white-space: nowrap;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
 .bukka-home .nav-links a:hover {
   color: var(--gold);
 }
 
-.bukka-home .nav-auth-item a,
-.bukka-home .mobile-profile-link {
-  color: var(--gold);
-  border: 1px solid var(--gold-dim);
-  padding: 0.55rem 0.8rem;
+.bukka-home .nav-region-news-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
-.bukka-home .mobile-profile-link {
+.bukka-home .nav-auth-item a,
+.bukka-home .nav-links > li > a[href='/register'] {
+  color: var(--gold);
+  border: 1px solid rgba(216, 166, 71, 0.6);
+  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+}
+
+.bukka-home .nav-auth-item a:hover,
+.bukka-home .nav-links > li > a[href='/register']:hover {
+  color: var(--deep);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.bukka-home .nav-menu-toggle {
   display: none;
 }
 
@@ -157,6 +133,26 @@
   text-align: center;
   padding: 8rem 5% 6rem;
   overflow: hidden;
+}
+
+.bukka-home .hero-video-frame {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1040px);
+  margin: 0 auto 1.9rem;
+  overflow: hidden;
+  border: 1px solid rgba(216, 166, 71, 0.72);
+  border-radius: 0.4rem;
+  background: #120d0a;
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.5), 0 0 2.5rem rgba(216, 166, 71, 0.16);
+}
+
+.bukka-home .hero-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2.9 / 1;
+  object-fit: contain;
+  background: #120d0a;
 }
 
 .bukka-home .hero-mandala {
@@ -269,6 +265,19 @@
   z-index: 2;
 }
 
+.bukka-home .homepage-notice {
+  position: relative;
+  z-index: 90;
+  margin: 7.4rem auto -7.4rem;
+  width: min(90%, 1100px);
+  padding: 0.7rem 1rem;
+  border-left: 3px solid var(--gold);
+  background: rgba(38, 23, 21, 0.94);
+  color: var(--cream);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
 .bukka-home .home-announcement-wrap .community-announcement {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
@@ -348,6 +357,30 @@
   background: var(--dark);
   border-top: 1px solid rgba(201, 168, 76, 0.12);
   border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+}
+
+.bukka-home .public-home-gate {
+  padding: 4rem 0 5rem;
+  background:
+    radial-gradient(ellipse at 50% 0, rgba(216, 166, 71, 0.08), transparent 65%),
+    var(--deep);
+  text-align: center;
+}
+
+.bukka-home .public-home-gate .section-inner {
+  max-width: 760px;
+}
+
+.bukka-home .public-home-gate .section-rule {
+  margin: 0 auto 1.8rem;
+}
+
+.bukka-home .public-home-gate .section-body {
+  margin-bottom: 2rem;
+}
+
+.bukka-home .public-home-gate .cta-buttons {
+  margin-top: 1.7rem;
 }
 
 .bukka-home .about-grid {
@@ -840,6 +873,13 @@
   letter-spacing: 0.1em;
 }
 
+.bukka-home .brand-mark--footer {
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+}
+
 .bukka-home .footer-copy {
   font-size: 0.75rem;
   letter-spacing: 0.1em;
@@ -848,6 +888,23 @@
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
+  .bukka-home .nav {
+    align-items: flex-start;
+  }
+
+  .bukka-home .homepage-notice {
+    margin-top: 7.5rem;
+    margin-bottom: -8.1rem;
+  }
+
+  .bukka-home .nav-links {
+    gap: 0.65rem 0.9rem;
+  }
+
+  .bukka-home .nav-links a {
+    font-size: 0.65rem;
+  }
+
   .bukka-home .about-grid,
   .bukka-home .values-grid {
     grid-template-columns: 1fr;
@@ -870,25 +927,99 @@
 }
 
 @media (max-width: 600px) {
+  .bukka-home .nav {
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 3.25rem 5% 0.85rem;
+  }
+
+  .bukka-home .hero {
+    min-height: auto;
+    padding-top: 9.5rem;
+    padding-bottom: 6rem;
+  }
+
+  .bukka-home .hero-video-frame {
+    margin-bottom: 1.4rem;
+  }
+
+  .bukka-home .nav-logo .brand-mark-image {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+
+  .bukka-home .nav-logo .brand-mark-label {
+    max-width: 9rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+  }
+
+  .bukka-home .nav-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border: 1px solid var(--gold-dim);
+    border-radius: 999px;
+    padding: 0.55rem 0.8rem;
+    background: rgba(38, 23, 21, 0.95);
+    color: var(--cream);
+    font: 600 0.72rem/1 'Lato', sans-serif;
+    cursor: pointer;
+  }
+
   .bukka-home .nav-links {
-    display: flex;
-    max-width: 52vw;
-    gap: 0.75rem;
-    overflow-x: auto;
-    scrollbar-width: none;
+    display: none;
+    flex: 1 0 100%;
+    justify-content: stretch;
+    gap: 0.25rem;
+    margin-top: 0.75rem;
+    padding: 0.65rem;
+    border: 1px solid rgba(216, 166, 71, 0.28);
+    background: rgba(27, 16, 13, 0.98);
   }
 
-  .bukka-home .nav-links::-webkit-scrollbar {
+  .bukka-home .nav-links--open {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bukka-home .nav-links li {
+    min-width: 0;
+  }
+
+  .bukka-home .nav-links a {
+    display: block;
+    padding: 0.7rem 0.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+  }
+
+  .bukka-home .nav-region-news-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .bukka-home .nav-auth-item a,
+  .bukka-home .nav-links > li > a[href='/register'] {
+    text-align: center;
+  }
+
+  .bukka-home .country-region-badge {
     display: none;
   }
 
-  .bukka-home .nav-links li:not(.nav-auth-item) {
-    display: none;
+  .bukka-home .public-home-gate {
+    padding: 3rem 0 4rem;
   }
+}
 
-  .bukka-home .nav-auth-item a {
-    display: inline-block;
-    font-size: 0.7rem;
-    white-space: nowrap;
+@media (prefers-reduced-motion: reduce) {
+  .bukka-home *,
+  .bukka-home *::before,
+  .bukka-home *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }

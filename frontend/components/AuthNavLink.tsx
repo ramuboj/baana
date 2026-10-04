@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getToken } from '@/lib/auth';
+import { useLanguage } from '@/lib/i18n';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
@@ -11,7 +12,8 @@ type AuthNavLinkProps = {
 };
 
 export default function AuthNavLink({ className }: AuthNavLinkProps) {
-  const [authenticated, setAuthenticated] = useState(() => Boolean(getToken()));
+  const { t } = useLanguage();
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
     const token = getToken();
@@ -20,16 +22,17 @@ export default function AuthNavLink({ className }: AuthNavLinkProps) {
       : {};
     fetch(`${API_URL}/auth/me`, { credentials: 'include', headers })
       .then((res) => {
-        if (res.ok) {
-          setAuthenticated(true);
-        }
+        setAuthenticated(res.ok);
       })
-        .catch(() => undefined);
+      .catch((error: Error) => {
+        console.error('Unable to verify sign-in state:', error);
+        setAuthenticated(false);
+      });
   }, []);
 
   return (
     <Link className={className} href={authenticated ? '/profile' : '/login'}>
-      {authenticated ? 'Profile' : 'Login'}
+      {t(authenticated ? 'Profile' : 'Login')}
     </Link>
   );
 }

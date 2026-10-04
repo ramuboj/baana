@@ -1,27 +1,24 @@
--- Cast community site – users table
--- Run: psql -U postgres -d baana -f src/db/schema.sql
+ALTER TABLE users ADD COLUMN IF NOT EXISTS region VARCHAR(2);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS role VARCHAR(20) NOT NULL DEFAULT 'user';
 
-CREATE TABLE IF NOT EXISTS users (
-  id              SERIAL PRIMARY KEY,
-  email           VARCHAR(255) NOT NULL UNIQUE,
-  password_hash   VARCHAR(255) NOT NULL,
-  first_name      VARCHAR(255),
-  last_name       VARCHAR(255),
-  date_of_birth   DATE,
-  place_of_birth  VARCHAR(255),
-  current_location VARCHAR(255),
-  city            VARCHAR(255),
-  country         VARCHAR(100),
-  current_country VARCHAR(100),
-  father_name     VARCHAR(255),
-  mother_name     VARCHAR(255),
-  contact_number  VARCHAR(50),
-  region          VARCHAR(2) CHECK (region IN ('IN', 'US')),
-  role            VARCHAR(20) NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'admin')),
-  created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+UPDATE users SET region = CASE
+  WHEN current_country = 'India' THEN 'IN'
+  WHEN current_country = 'United States' THEN 'US'
+  WHEN country = 'India' THEN 'IN'
+  WHEN country = 'United States' THEN 'US'
+  ELSE NULL
+END
+WHERE region IS NULL;
 
-CREATE INDEX IF NOT EXISTS idx_users_email ON users (email);
+DO $$ BEGIN
+  ALTER TABLE users ADD CONSTRAINT users_region_check CHECK (region IN ('IN', 'US'));
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  ALTER TABLE users ADD CONSTRAINT users_role_check CHECK (role IN ('user', 'admin'));
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
 CREATE TABLE IF NOT EXISTS regional_content (
   id SERIAL PRIMARY KEY,

@@ -8,49 +8,35 @@ import '../app/auth.css';
 import CommunityAnnouncement from './CommunityAnnouncement';
 import CountrySelector from './CountrySelector';
 import AuthNavLink from './AuthNavLink';
+import BrandMark from './BrandMark';
+import { useLanguage } from '@/lib/i18n';
 import './region-news.css';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
-const content: Record<CountryCode, {
+type Article = {
+  id: number;
+  label: string;
   title: string;
-  subtitle: string;
-  articles: { label: string; title: string; date: string; body: string }[];
-}> = {
-  IN: {
-    title: 'India Community News',
-    subtitle: 'Faith, family, and service across our homeland',
-    articles: [
-      { label: 'Festival calendar', title: 'India holiday observances', date: 'Plan ahead', body: 'Families are preparing for Ugadi, Diwali, and other sacred holidays with prayer, temple visits, and community meals. Watch this space for local gathering details.' },
-      { label: 'Family gathering', title: 'Spring break family picnic', date: 'Registration opening soon', body: 'Join fellow families for a spring break picnic with devotional songs, traditional games, shared food, and children’s activities. India-region members will receive the venue and schedule by email.' },
-      { label: 'Temple life', title: 'Gathering in devotion', date: 'Community update', body: 'Members and families continue to preserve prayer, festival, and temple traditions across Andhra Pradesh and Telangana.' },
-      { label: 'Community', title: 'Passing wisdom forward', date: 'Community update', body: 'Elders and young members are creating new opportunities to share Telugu heritage, stories, and sacred customs.' },
-    ],
-  },
-  US: {
-    title: 'USA Community News',
-    subtitle: 'Faith and fellowship for families across America',
-    articles: [
-      { label: 'Holiday calendar', title: 'USA holiday observances', date: 'Plan ahead', body: 'Members are planning community gatherings around Independence Day, Thanksgiving, and the holiday season while honoring our shared religious traditions.' },
-      { label: 'Family gathering', title: 'Spring break family picnic', date: 'Registration opening soon', body: 'Bring the family for a spring break picnic with prayer, cultural activities, traditional games, and a community potluck. USA-region members will receive the venue and schedule by email.' },
-      { label: 'Community', title: 'Growing together', date: 'Community update', body: 'Our US members are building welcoming gatherings that keep family, devotion, and cultural memory close to home.' },
-      { label: 'Service', title: 'A spirit of seva', date: 'Community update', body: 'Community volunteers are connecting families through service, hospitality, and celebrations throughout the year.' },
-    ],
-  },
+  date_label: string;
+  body: string;
 };
 
 export default function RegionNews({ region }: { region: CountryCode }) {
+  const { t } = useLanguage();
   const [state, setState] = useState<'loading' | 'allowed' | 'denied' | 'signed-out'>('loading');
   const [message, setMessage] = useState('');
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [accountRegion, setAccountRegion] = useState<CountryCode | null>(null);
   const header = (
     <nav className="auth-nav">
       <Link href="/" className="auth-nav-logo">
-        Bukka Ayyavarlu
-        <CountrySelector variant="nav" />
+        <BrandMark />
+        <CountrySelector region={accountRegion} />
       </Link>
       <ul className="auth-nav-links">
-        <li><Link href="/">Home</Link></li>
-        <li><Link href="/contact">Contact</Link></li>
+        <li><Link href="/">{t('Home')}</Link></li>
+        <li><Link href="/contact">{t('Contact')}</Link></li>
         <li><AuthNavLink /></li>
       </ul>
     </nav>
@@ -67,7 +53,10 @@ export default function RegionNews({ region }: { region: CountryCode }) {
         }
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.error || 'Unable to verify your region');
-        if (data.user?.region !== region) {
+        if (data.user?.region === 'IN' || data.user?.region === 'US') {
+          setAccountRegion(data.user.region);
+        }
+        if (data.user?.region !== region && data.user?.role !== 'admin') {
           setMessage(
             data.user?.region === 'US'
               ? 'Authentication conflict: your account is registered in the United States. India news is unavailable for this account.'
@@ -76,6 +65,15 @@ export default function RegionNews({ region }: { region: CountryCode }) {
           setState('denied');
           return;
         }
+        const contentResponse = await fetch(`${API_URL}/regions/${region}/content?kind=news`, {
+          credentials: 'include',
+          headers,
+        });
+        const contentData = await contentResponse.json().catch(() => ({}));
+        if (!contentResponse.ok) {
+          throw new Error(contentData.error || 'Unable to load regional news');
+        }
+        setArticles(contentData.content || []);
         setState('allowed');
       })
       .catch((err: Error) => {
@@ -84,45 +82,49 @@ export default function RegionNews({ region }: { region: CountryCode }) {
       });
   }, [region]);
 
-  if (state === 'loading') return <main className="region-news-page">{header}<div className="region-news-content"><p>Verifying your community region…</p></div></main>;
+  if (state === 'loading') return <main className="region-news-page">{header}<div className="region-news-content"><p>{t('Verifying your community region…')}</p></div></main>;
   if (state === 'signed-out') {
     return (
       <main className="region-news-page">{header}<div className="region-news-content">
-        <p className="auth-chat-subtitle">Members only</p>
-        <h1 className="auth-chat-title">Sign in to view regional news</h1>
-        <p className="region-news-message">Please sign in with your {region === 'IN' ? 'India' : 'USA'} community account to continue.</p>
-        <Link className="auth-btn auth-btn-primary" href="/login">Go to login</Link>
+        <p className="auth-chat-subtitle">{t('Members only')}</p>
+        <h1 className="auth-chat-title">{t('Sign in to view regional news')}</h1>
+        <p className="region-news-message">{t(region === 'IN' ? 'Please sign in with your India community account to continue.' : 'Please sign in with your USA community account to continue.')}</p>
+        <Link className="auth-btn auth-btn-primary" href="/login">{t('Go to login')}</Link>
       </div></main>
     );
   }
   if (state === 'denied') {
     return (
       <main className="region-news-page">{header}<div className="region-news-content">
-        <p className="auth-chat-subtitle">Access restricted</p>
-        <h1 className="auth-chat-title">Regional authentication conflict</h1>
-        <p className="region-news-message" role="alert">{message}</p>
-        <Link className="auth-btn auth-btn-primary" href="/profile">Return to profile</Link>
+        <p className="auth-chat-subtitle">{t('Access restricted')}</p>
+        <h1 className="auth-chat-title">{t('Regional authentication conflict')}</h1>
+        <p className="region-news-message" role="alert">{t(message)}</p>
+        <Link className="auth-btn auth-btn-primary" href="/profile">{t('Return to profile')}</Link>
       </div></main>
     );
   }
 
-  const page = content[region];
+  const pageTitle = region === 'IN' ? 'India Community News' : 'USA Community News';
+  const pageSubtitle = region === 'IN'
+    ? 'Faith, family, and service across our homeland'
+    : 'Faith and fellowship for families across America';
   return (
     <main className="region-news-page">{header}<div className="region-news-content">
-      <nav className="region-news-nav"><Link href="/profile">Profile</Link><Link href="/">Home</Link></nav>
-      <p className="auth-chat-subtitle">{region === 'IN' ? 'India region' : 'USA region'}</p>
-      <h1 className="auth-chat-title">{page.title}</h1>
-      <p className="region-news-subtitle">{page.subtitle}</p>
+      <nav className="region-news-nav"><Link href="/profile">{t('Profile')}</Link><Link href="/">{t('Home')}</Link></nav>
+      <p className="auth-chat-subtitle">{t(region === 'IN' ? 'India region' : 'USA region')}</p>
+      <h1 className="auth-chat-title">{t(pageTitle)}</h1>
+      <p className="region-news-subtitle">{t(pageSubtitle)}</p>
       <CommunityAnnouncement region={region} />
       <div className="region-news-grid">
-        {page.articles.map((article) => (
-          <article className="region-news-card" key={article.title}>
-            <p className="auth-chat-subtitle">{article.label}</p>
-            <h2>{article.title}</h2>
-            <p className="region-news-date">{article.date}</p>
-            <p>{article.body}</p>
+        {articles.map((article) => (
+          <article className="region-news-card" key={article.id}>
+            <p className="auth-chat-subtitle">{t(article.label)}</p>
+            <h2>{t(article.title)}</h2>
+            <p className="region-news-date">{t(article.date_label)}</p>
+            <p>{t(article.body)}</p>
           </article>
         ))}
+        {!articles.length && <p className="region-news-message">{t('No regional updates have been published yet.')}</p>}
       </div>
     </div></main>
   );
