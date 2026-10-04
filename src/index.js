@@ -8,22 +8,15 @@ const { authenticate, requireAdmin, requireRegionAccess } = require('./middlewar
 const { chat } = require('./routes/chat');
 const adminRoutes = require('./routes/admin');
 const { getPublicSettings, getRegionalContent } = require('./routes/content');
+const { getAllowedOrigins, isAllowedOrigin } = require('./middleware/cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3001')
-  .split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+const allowedOrigins = getAllowedOrigins(process.env.CORS_ORIGIN || 'http://localhost:3001');
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error('Origin is not allowed by CORS'));
-  },
+  origin: (origin, callback) => callback(null, isAllowedOrigin(origin, allowedOrigins)),
   credentials: true,
 }));
 app.use(express.json());
