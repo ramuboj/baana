@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getToken } from '@/lib/auth';
 import type { CountryCode } from '@/lib/locale';
+import { useLanguage } from '@/lib/i18n';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 export default function RegionNewsNavLink() {
-  const [region, setRegion] = useState<CountryCode | null>(null);
+  const { t } = useLanguage();
+  const [region, setRegion] = useState<CountryCode | 'admin' | null>(null);
 
   useEffect(() => {
     const token = getToken();
@@ -18,17 +20,21 @@ export default function RegionNewsNavLink() {
         if (!res.ok) return;
         const data = await res.json();
         if (data.user?.region === 'IN' || data.user?.region === 'US') {
-          setRegion(data.user.region);
+          setRegion(data.user.role === 'admin' ? 'admin' : data.user.region);
         }
       })
-      .catch(() => undefined);
+      .catch((error: Error) => console.error('Unable to load regional navigation:', error));
   }, []);
 
   if (!region) return null;
 
-  return (
-    <Link href={region === 'IN' ? '/india/news' : '/usa/news'}>
-      News
-    </Link>
-  );
+  if (region === 'admin') {
+    return (
+      <span className="nav-region-news-links">
+        <Link href="/india/news">{t('India News')}</Link>
+        <Link href="/usa/news">{t('USA News')}</Link>
+      </span>
+    );
+  }
+  return <Link href={region === 'IN' ? '/india/news' : '/usa/news'}>{t('News')}</Link>;
 }

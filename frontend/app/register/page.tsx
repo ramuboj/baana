@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { setToken } from '@/lib/auth';
-import CountrySelector from '@/components/CountrySelector';
+import BrandMark from '@/components/BrandMark';
+import { useLanguage } from '@/lib/i18n';
 import { COUNTRIES } from '@/lib/countries';
 import '../auth.css';
 
@@ -12,6 +13,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 const MIN_PASSWORD_LENGTH = 8;
 
 export default function RegisterPage() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,11 +47,11 @@ export default function RegisterPage() {
     setError('');
 
     if (password.length < MIN_PASSWORD_LENGTH) {
-      setError(`Password must be at least ${MIN_PASSWORD_LENGTH} characters`);
+      setError(t('Password must be at least 8 characters'));
       return;
     }
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('Passwords do not match'));
       return;
     }
 
@@ -77,7 +79,7 @@ export default function RegisterPage() {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(data.error || 'Registration failed');
+        setError(t(data.error || 'Registration failed'));
         return;
       }
       if (data.token) {
@@ -88,7 +90,7 @@ export default function RegisterPage() {
         setError('No token received');
       }
     } catch (err) {
-      setError('Network error. Is the backend running?');
+      setError(t('Network error. Is the backend running?'));
     } finally {
       setLoading(false);
     }
@@ -98,27 +100,26 @@ export default function RegisterPage() {
     <div className="bukka-auth">
       <nav className="auth-nav">
         <Link href="/" className="auth-nav-logo">
-          Bukka Ayyavarlu
-          <CountrySelector variant="nav" />
+          <BrandMark />
         </Link>
         <ul className="auth-nav-links">
-          <li><Link href="/#about">About</Link></li>
-          <li><Link href="/#heritage">Heritage</Link></li>
-          <li><Link href="/#join">Join Us</Link></li>
-          <li><Link href="/contact">Contact</Link></li>
-          <li><Link href="/login">Login</Link></li>
+          <li><Link href="/#about">{t('About')}</Link></li>
+          <li><Link href="/#heritage">{t('Heritage')}</Link></li>
+          <li><Link href="/#join">{t('Join Us')}</Link></li>
+          <li><Link href="/contact">{t('Contact')}</Link></li>
+          <li><Link href="/login">{t('Login')}</Link></li>
         </ul>
       </nav>
 
       <main className="auth-main">
         <div className="auth-card">
-          <p className="auth-subtitle">Cast Community</p>
-          <h1 className="auth-title">Register as a Member</h1>
+          <p className="auth-subtitle">{t('Cast Community')}</p>
+          <h1 className="auth-title">{t('Register as a Member')}</h1>
           <div className="auth-divider" />
           <form onSubmit={handleSubmit}>
             <fieldset className="auth-fieldset">
-              <span className="auth-fieldset-legend">Account</span>
-              <label htmlFor="email" className="auth-label">Email</label>
+              <span className="auth-fieldset-legend">{t('Account')}</span>
+              <label htmlFor="email" className="auth-label">{t('Email')}</label>
               <input
                 id="email"
                 type="email"
@@ -130,7 +131,7 @@ export default function RegisterPage() {
                 className="auth-input"
               />
               <label htmlFor="password" className="auth-label">
-                Password (min {MIN_PASSWORD_LENGTH} characters)
+                {t('Password')} ({t('min')} {MIN_PASSWORD_LENGTH} {t('characters')})
               </label>
               <input
                 id="password"
@@ -143,7 +144,7 @@ export default function RegisterPage() {
                 minLength={MIN_PASSWORD_LENGTH}
                 className="auth-input"
               />
-              <label htmlFor="confirmPassword" className="auth-label">Confirm password</label>
+              <label htmlFor="confirmPassword" className="auth-label">{t('Confirm password')}</label>
               <input
                 id="confirmPassword"
                 type="password"
@@ -158,8 +159,8 @@ export default function RegisterPage() {
             </fieldset>
 
             <fieldset className="auth-fieldset">
-              <span className="auth-fieldset-legend">Personal details</span>
-              <label htmlFor="firstName" className="auth-label">First name</label>
+              <span className="auth-fieldset-legend">{t('Personal details')}</span>
+              <label htmlFor="firstName" className="auth-label">{t('First name')}</label>
               <input
                 id="firstName"
                 type="text"
@@ -169,7 +170,7 @@ export default function RegisterPage() {
                 disabled={loading}
                 className="auth-input"
               />
-              <label htmlFor="lastName" className="auth-label">Last name</label>
+              <label htmlFor="lastName" className="auth-label">{t('Last name')}</label>
               <input
                 id="lastName"
                 type="text"
@@ -179,7 +180,7 @@ export default function RegisterPage() {
                 disabled={loading}
                 className="auth-input"
               />
-              <label htmlFor="dateOfBirth" className="auth-label">Date of birth</label>
+              <label htmlFor="dateOfBirth" className="auth-label">{t('Date of birth')}</label>
               <input
                 id="dateOfBirth"
                 type="date"
@@ -188,38 +189,38 @@ export default function RegisterPage() {
                 disabled={loading}
                 className="auth-input"
               />
-              <label htmlFor="placeOfBirth" className="auth-label">Place of birth</label>
+              <label htmlFor="placeOfBirth" className="auth-label">{t('Place of birth')}</label>
               <input
                 id="placeOfBirth"
                 type="text"
                 value={placeOfBirth}
                 onChange={(e) => setPlaceOfBirth(e.target.value)}
                 disabled={loading}
-                placeholder="City / Town"
+                placeholder={t('City / Town')}
                 className="auth-input"
               />
-              <label htmlFor="currentLocation" className="auth-label">State / Region</label>
+              <label htmlFor="currentLocation" className="auth-label">{t('State / Region')}</label>
               <input
                 id="currentLocation"
                 type="text"
                 value={currentLocation}
                 onChange={(e) => setCurrentLocation(e.target.value)}
                 disabled={loading}
-                placeholder="State or Region"
+                placeholder={t('State or Region')}
                 className="auth-input"
               />
-              <label htmlFor="city" className="auth-label">City</label>
+              <label htmlFor="city" className="auth-label">{t('City')}</label>
               <input
                 id="city"
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 disabled={loading}
-                placeholder="City"
+                placeholder={t('City')}
                 className="auth-input"
                 autoComplete="address-level2"
               />
-              <label htmlFor="country" className="auth-label">Registration region</label>
+              <label htmlFor="country" className="auth-label">{t('Registration region')}</label>
               <select
                 id="country"
                 value={country}
@@ -229,12 +230,12 @@ export default function RegisterPage() {
                 autoComplete="country-name"
                 required
               >
-                <option value="">Select region</option>
+                <option value="">{t('Select region')}</option>
                 {COUNTRIES.map((c) => (
-                  <option key={c} value={c}>{c}</option>
+                  <option key={c} value={c}>{t(c)}</option>
                 ))}
               </select>
-              <label htmlFor="currentCountry" className="auth-label">Current country</label>
+              <label htmlFor="currentCountry" className="auth-label">{t('Current country')}</label>
               <select
                 id="currentCountry"
                 value={currentCountry}
@@ -244,10 +245,10 @@ export default function RegisterPage() {
                 autoComplete="country-name"
                 required
               >
-                <option value="">Select current country</option>
-                {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                <option value="">{t('Select current country')}</option>
+                {COUNTRIES.map((c) => <option key={c} value={c}>{t(c)}</option>)}
               </select>
-              <label htmlFor="fatherName" className="auth-label">Father&apos;s name</label>
+              <label htmlFor="fatherName" className="auth-label">{t("Father's name")}</label>
               <input
                 id="fatherName"
                 type="text"
@@ -257,7 +258,7 @@ export default function RegisterPage() {
                 disabled={loading}
                 className="auth-input"
               />
-              <label htmlFor="motherName" className="auth-label">Mother&apos;s name</label>
+              <label htmlFor="motherName" className="auth-label">{t("Mother's name")}</label>
               <input
                 id="motherName"
                 type="text"
@@ -267,7 +268,7 @@ export default function RegisterPage() {
                 disabled={loading}
                 className="auth-input"
               />
-              <label htmlFor="contactNumber" className="auth-label">Contact number</label>
+              <label htmlFor="contactNumber" className="auth-label">{t('Contact number')}</label>
               <input
                 id="contactNumber"
                 type="tel"
@@ -275,7 +276,7 @@ export default function RegisterPage() {
                 value={contactNumber}
                 onChange={(e) => setContactNumber(e.target.value)}
                 disabled={loading}
-                placeholder="Phone / Mobile"
+                placeholder={t('Phone / Mobile')}
                 className="auth-input"
               />
             </fieldset>
@@ -289,20 +290,20 @@ export default function RegisterPage() {
               className="auth-btn auth-btn-primary"
               style={{ marginTop: '0.5rem' }}
             >
-              {loading ? 'Creating account…' : 'Register'}
+              {loading ? t('Creating account…') : t('Register')}
             </button>
           </form>
           <p className="auth-footer-links" style={{ marginTop: '1.5rem' }}>
-            Already have an account? <Link href="/login">Log in</Link>
+            {t('Already have an account?')} <Link href="/login">{t('Log in')}</Link>
           </p>
           <p className="auth-footer-links" style={{ marginTop: '0.5rem' }}>
-            <Link href="/">← Back to home</Link>
+            <Link href="/">{`← ${t('Back to home')}`}</Link>
           </p>
         </div>
       </main>
 
       <footer className="auth-page-footer">
-        Bukka Ayyavarlu Community
+        <BrandMark className="brand-mark--footer" label="Bukka Ayyavarlu Community" />
       </footer>
     </div>
   );

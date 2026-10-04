@@ -8,15 +8,16 @@ const REGION_BY_COUNTRY = {
   'United States': 'US',
 };
 const USER_FIELDS = `id, email, first_name, last_name, date_of_birth, place_of_birth,
-  current_location, city, country, current_country, father_name, mother_name, contact_number, created_at`;
+  current_location, city, country, current_country, region, role, father_name, mother_name, contact_number, created_at`;
 
 function getUserRegion(user) {
+  if (user.region === 'IN' || user.region === 'US') return user.region;
   return REGION_BY_COUNTRY[user.current_country] || REGION_BY_COUNTRY[user.country] || null;
 }
 
 function signToken(user) {
   return jwt.sign(
-    { sub: user.id, email: user.email, region: getUserRegion(user) },
+    { sub: user.id, email: user.email, region: getUserRegion(user), role: user.role || 'user' },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
   );
@@ -66,21 +67,32 @@ async function signup(req, res) {
     if (!emailNorm) {
       return res.status(400).json({ error: 'Invalid email' });
     }
+    const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+    if (adminEmail && emailNorm === adminEmail) {
+      const existingAdmin = await pool.query('SELECT 1 FROM users WHERE email = $1', [emailNorm]);
+      if (!existingAdmin.rows[0]) {
+        return res.status(403).json({ error: 'Create this account before configuring administrator access' });
+      }
+    }
     if (password.length < 8) {
       return res.status(400).json({ error: 'Password must be at least 8 characters' });
     }
     if (!REGION_BY_COUNTRY[country] || !REGION_BY_COUNTRY[current_country || country]) {
       return res.status(400).json({ error: 'Select India or United States as your region' });
     }
+    const settings = await pool.query('SELECT registration_enabled FROM site_settings WHERE id = TRUE');
+    if (settings.rows[0] && !settings.rows[0].registration_enabled) {
+      return res.status(403).json({ error: 'Registration is currently closed' });
+    }
 
     const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
     const result = await pool.query(
       `INSERT INTO users (
         email, password_hash, first_name, last_name, date_of_birth, place_of_birth,
-        current_location, city, country, current_country, father_name, mother_name, contact_number
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        current_location, city, country, current_country, region, father_name, mother_name, contact_number
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
       RETURNING id, email, first_name, last_name, date_of_birth, place_of_birth, current_location,
-        city, country, current_country, father_name, mother_name, contact_number, created_at`,
+        city, country, current_country, region, role, father_name, mother_name, contact_number, created_at`,
       [
         emailNorm,
         passwordHash,
@@ -92,6 +104,7 @@ async function signup(req, res) {
         trimStr(city) || null,
         trimStr(country) || null,
         trimStr(current_country) || trimStr(country) || null,
+        REGION_BY_COUNTRY[country],
         trimStr(father_name) || null,
         trimStr(mother_name) || null,
         trimStr(contact_number) || null,
@@ -127,6 +140,7 @@ function toUserResponse(row) {
     country: row.country,
     current_country: row.current_country,
     region: getUserRegion(row),
+    role: row.role || 'user',
     father_name: row.father_name,
     mother_name: row.mother_name,
     contact_number: row.contact_number,

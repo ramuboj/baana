@@ -22,11 +22,102 @@ a:hover {
   text-decoration: underline;
 }
 
+html[lang='te'] .bukka-home,
+html[lang='te'] .bukka-auth,
+html[lang='te'] .dashboard-page {
+  font-family: 'Noto Sans Telugu', sans-serif;
+}
+
+html[lang='te'] .bukka-home h1,
+html[lang='te'] .bukka-home h2,
+html[lang='te'] .bukka-home h3,
+html[lang='te'] .bukka-auth h1,
+html[lang='te'] .bukka-auth h2,
+html[lang='te'] .dashboard-page h1,
+html[lang='te'] .dashboard-page h2 {
+  font-family: 'Noto Serif Telugu', serif;
+}
+
+.language-switcher {
+  position: fixed;
+  top: 0.65rem;
+  right: 1.25rem;
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border: 1px solid rgba(201, 168, 76, 0.65);
+  border-radius: 999px;
+  background: rgba(26, 18, 8, 0.94);
+  box-shadow: 0 0.25rem 0.8rem rgba(0, 0, 0, 0.25);
+}
+
+.language-switcher button {
+  min-width: 2.7rem;
+  padding: 0.35rem 0.55rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #ddd0b0;
+  font: 600 0.72rem/1.2 Lato, system-ui, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.language-switcher button:last-child {
+  min-width: 3.8rem;
+}
+
+.language-switcher button[aria-pressed='true'] {
+  background: #c9a84c;
+  color: #1a1208;
+}
+
+.language-switcher button:focus-visible {
+  outline: 2px solid #f5edd8;
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .language-switcher {
+    top: 0.45rem;
+    right: 0.75rem;
+  }
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-mark-image {
+  width: 2.8rem;
+  height: 2.8rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+  border: 1px solid rgba(201, 168, 76, 0.45);
+  border-radius: 0.45rem;
+  background: #f5edd8;
+}
+
+.brand-mark-label {
+  font: inherit;
+}
+
+.brand-mark--footer .brand-mark-image {
+  width: 2.35rem;
+  height: 2.35rem;
+}
+
 .dashboard-page {
   min-height: 100vh;
   padding: 3rem 5%;
-  background: #1a1208;
-  color: #f5edd8;
+  background: #1b100d;
+  color: #fff4df;
   font-family: Lato, system-ui, sans-serif;
 }
 
@@ -52,6 +143,20 @@ a:hover {
 
 .dashboard-header h1 {
   font-size: clamp(1.5rem, 4vw, 2.3rem);
+}
+
+.dashboard-brand {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  color: #c9a84c;
+  font-family: Cinzel, Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+
+.dashboard-brand .brand-mark-image {
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .dashboard-kicker {
@@ -93,8 +198,8 @@ a:hover {
 .dashboard-card {
   min-height: 360px;
   padding: 2rem;
-  background: #231a09;
-  border: 1px solid rgba(201, 168, 76, 0.25);
+  background: #261715;
+  border: 1px solid rgba(216, 166, 71, 0.25);
 }
 
 .dashboard-card h2 {
@@ -165,9 +270,9 @@ a:hover {
   align-items: center;
   gap: 1.2rem;
   padding: 1.1rem 1.3rem;
-  background: linear-gradient(110deg, #5c2819, #3d2d10);
-  border: 1px solid #c9a84c;
-  color: #f5edd8;
+  background: linear-gradient(110deg, #702719, #3a2117);
+  border: 1px solid #d8a647;
+  color: #fff4df;
 }
 
 .community-announcement-badge {
@@ -255,78 +360,6 @@ a:hover {
     padding: 2rem 1.25rem;
   }
 
-  .region-news-page {
-    min-height: 100vh;
-    padding: 4rem 6%;
-    background: #1a1208;
-    color: #f5edd8;
-    font-family: Lato, system-ui, sans-serif;
-  }
-
-  .region-news-nav {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-bottom: 4rem;
-  }
-
-  .region-news-page a {
-    color: #c9a84c;
-  }
-
-  .region-news-page .auth-chat-title {
-    margin-bottom: 1rem;
-  }
-
-  .region-news-subtitle,
-  .region-news-message {
-    max-width: 650px;
-    margin-bottom: 2.5rem;
-    color: #ddd0b0;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    line-height: 1.7;
-  }
-
-  .region-news-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem;
-    max-width: 1000px;
-  }
-
-  .region-news-card {
-    padding: 2rem;
-    background: #231a09;
-    border: 1px solid rgba(201, 168, 76, 0.25);
-  }
-
-  .region-news-card h2 {
-    margin-bottom: 0.75rem;
-    color: #f5edd8;
-    font-family: Cinzel, Georgia, serif;
-    font-size: 1.3rem;
-  }
-
-  .region-news-date {
-    margin-bottom: 0.8rem;
-    color: #c9a84c;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .region-news-card p:last-child {
-    color: #ddd0b0;
-    line-height: 1.7;
-  }
-
-  @media (max-width: 700px) {
-    .region-news-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
   .dashboard-header {
     align-items: flex-start;
     flex-direction: column;
@@ -336,5 +369,11 @@ a:hover {
 
   .dashboard-grid {
     grid-template-columns: 1fr;
+  }
+
+  .dashboard-nav {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 }

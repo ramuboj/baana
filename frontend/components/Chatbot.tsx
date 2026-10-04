@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
@@ -18,6 +19,7 @@ type ChatbotProps = {
 };
 
 export default function Chatbot({ apiUrl = API_URL, className = '', token }: ChatbotProps) {
+  const { t } = useLanguage();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -69,7 +71,7 @@ export default function Chatbot({ apiUrl = API_URL, className = '', token }: Cha
       };
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err) {
-      setError('Network error. Is the API running?');
+      setError(t('Network error. Is the API running?'));
     } finally {
       setLoading(false);
     }
@@ -103,7 +105,7 @@ export default function Chatbot({ apiUrl = API_URL, className = '', token }: Cha
       >
         {messages.length === 0 && (
           <p style={{ color: '#64748b', fontSize: '0.875rem', margin: 'auto' }}>
-            Send a message to start the conversation.
+            {t('Send a message to start the conversation.')}
           </p>
         )}
         {messages.map((msg) => (
@@ -159,7 +161,7 @@ export default function Chatbot({ apiUrl = API_URL, className = '', token }: Cha
           className="chatbot-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type a message…"
+          placeholder={t('Type a message…')}
           disabled={loading}
           autoComplete="off"
           style={{
@@ -187,7 +189,7 @@ export default function Chatbot({ apiUrl = API_URL, className = '', token }: Cha
             cursor: loading || !input.trim() ? 'not-allowed' : 'pointer',
           }}
         >
-          Send
+          {t('Send')}
         </button>
       </form>
     </div>

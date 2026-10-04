@@ -1,14 +1,14 @@
 /* Bukka Ayyavarlu – Login & Register (sync with home) */
 .bukka-auth {
-  --gold: #c9a84c;
-  --gold-light: #e8c97a;
-  --gold-dim: #7a5f2a;
-  --deep: #1a1208;
-  --dark: #231a09;
-  --mid: #3d2d10;
-  --cream: #f5edd8;
-  --cream-dim: #ddd0b0;
-  --terracotta: #b85c38;
+  --gold: #d8a647;
+  --gold-light: #f2ca73;
+  --gold-dim: #93632f;
+  --deep: #1b100d;
+  --dark: #261715;
+  --mid: #3a2117;
+  --cream: #fff4df;
+  --cream-dim: #dbc6a5;
+  --terracotta: #9f4125;
   min-height: 100vh;
   background: var(--deep);
   color: var(--cream);
@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.2rem 5%;
+  padding: 3.4rem 5% 1.2rem;
   background: linear-gradient(to bottom, rgba(26, 18, 8, 0.95), transparent);
   backdrop-filter: blur(4px);
 }
@@ -49,6 +49,25 @@
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+}
+
+.bukka-auth .country-region-badge {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 999px;
+  color: var(--cream-dim);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bukka-auth .brand-mark--footer {
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
 }
 
 .bukka-auth .auth-nav-region {
@@ -418,6 +437,28 @@
 }
 
 @media (max-width: 700px) {
+  .bukka-auth .auth-nav {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .bukka-auth .auth-nav-links {
+    display: flex;
+    flex: 1 0 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.45rem 1rem;
+  }
+
+  .bukka-auth .auth-nav-links a {
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+  }
+
+  .bukka-auth .auth-main-contact {
+    padding-top: 8rem;
+  }
+
   .bukka-auth .contact-grid {
     grid-template-columns: 1fr;
   }
@@ -464,6 +505,15 @@
   margin-bottom: 2.5rem;
 }
 
+.bukka-auth .contact-region-gate {
+  margin: 0 0 1.25rem;
+  padding: 0.9rem 1rem;
+  border-left: 2px solid var(--gold);
+  background: rgba(35, 26, 9, 0.65);
+  color: var(--cream-dim);
+  line-height: 1.55;
+}
+
 .bukka-auth .contact-country-heading {
   font-family: 'Cinzel', serif;
   font-size: 1.1rem;
@@ -504,7 +554,9 @@
 
 @media (max-width: 600px) {
   .bukka-auth .auth-nav-links {
-    gap: 1.25rem;
-    font-size: 0.7rem;
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 0.4rem 0.8rem;
+    justify-content: start;
   }
 }
